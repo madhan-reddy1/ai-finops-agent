@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+
+# Generated outputs (created on each run)
+# NOTE: reports/savings-report.md and reports/approved-actions.json are
+# intentionally NOT ignored — the repo ships a sample report so reviewers
+# can see real output without running the tool.
+*.log
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
