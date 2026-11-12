@@ -1,0 +1,63 @@
+name: FinOps Check
+
+# Runs the AI FinOps agent on a schedule and on pull requests.
+# It analyzes cost/usage data, writes a savings report, and posts the
+# summary as a PR comment (on PRs) and as a job summary (always).
+# Nothing is executed against AWS — the agent only analyzes and proposes.
+
+on:
+  schedule:
+    # Every Monday at 09:00 UTC — weekly waste check.
+    - cron: '0 9 * * 1'
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  finops-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run FinOps analysis
+        run: |
+          npm ci
+          npm run analyze
+          echo "## 💰 FinOps Savings Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          grep -A 6 "^## Summary" reports/savings-report.md >> $GITHUB_STEP_SUMMARY || true
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Full report: \`reports/savings-report.md\`" >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload savings report
+        uses: actions/upload-artifact@v4
+        with:
+          name: finops-savings-report
+          path: |
+            reports/savings-report.md
+            reports/findings.json
+
+      - name: Comment savings summary on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('reports/savings-report.md', 'utf8');
+            const summary = report.split('## Findings')[0]; // summary + tables only
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `## 💰 FinOps check — potential savings\n\n${summary}\n\n_Nothing was executed. Review findings with \`node approve.js --list\` and approve them with \`node approve.js\`._`
+            });
