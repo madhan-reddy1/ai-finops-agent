@@ -1,0 +1,144 @@
+{
+  "generated": "2026-11-12T15:42:49.839Z",
+  "source": "reports/findings.json",
+  "status": "PLAN ONLY — NOT EXECUTED",
+  "warning": "This file is an execution plan produced after human approval. It does not execute anything. A human (or a separate, explicitly authorized automation step) must apply each action. The agent never calls AWS.",
+  "approvedMonthlySavingsUsd": 704.04,
+  "approvedAnnualSavingsUsd": 8448.48,
+  "rejectedMonthlySavingsUsd": 183.96,
+  "approvedActions": [
+    {
+      "id": "F-002",
+      "action": "stop-or-terminate-instance",
+      "resourceType": "EC2 instance",
+      "resourceId": "i-0a1b2c3d4e5f60001",
+      "resourceName": "web-prod-01",
+      "monthlySavingsUsd": 140.16,
+      "recommendation": "Stop or terminate web-prod-01 (m5.xlarge). If it is needed again, relaunch from the latest AMI — do not keep paying for an idle box."
+    },
+    {
+      "id": "F-003",
+      "action": "downsize-instance",
+      "resourceType": "EC2 instance",
+      "resourceId": "i-0a1b2c3d4e5f60008",
+      "resourceName": "ml-training",
+      "monthlySavingsUsd": 124.1,
+      "recommendation": "Downsize ml-training from c5.2xlarge ($248.20/mo) to c5.xlarge ($124.10/mo) and watch CPU for one week."
+    },
+    {
+      "id": "F-004",
+      "action": "stop-or-terminate-instance",
+      "resourceType": "EC2 instance",
+      "resourceId": "i-0a1b2c3d4e5f60003",
+      "resourceName": "api-staging",
+      "monthlySavingsUsd": 121.47,
+      "recommendation": "Stop or terminate api-staging (t3.xlarge). If it is needed again, relaunch from the latest AMI — do not keep paying for an idle box."
+    },
+    {
+      "id": "F-005",
+      "action": "snapshot-then-delete-volume",
+      "resourceType": "EBS volume",
+      "resourceId": "vol-0a1b2c3d4e5f600a3",
+      "resourceName": "1000GB gp3 volume",
+      "monthlySavingsUsd": 80,
+      "recommendation": "Take a final snapshot if the data matters, then delete vol-0a1b2c3d4e5f600a3 (1000GB gp3)."
+    },
+    {
+      "id": "F-006",
+      "action": "downsize-instance",
+      "resourceType": "EC2 instance",
+      "resourceId": "i-0a1b2c3d4e5f60002",
+      "resourceName": "web-prod-02",
+      "monthlySavingsUsd": 70.08,
+      "recommendation": "Downsize web-prod-02 from m5.xlarge ($140.16/mo) to m5.large ($70.08/mo) and watch CPU for one week."
+    },
+    {
+      "id": "F-007",
+      "action": "delete-snapshot",
+      "resourceType": "EBS snapshot",
+      "resourceId": "snap-0a1b2c3d4e5f60103",
+      "resourceName": "800GB snapshot",
+      "monthlySavingsUsd": 40,
+      "recommendation": "Delete snap-0a1b2c3d4e5f60103 (800GB) unless it is a legal/compliance hold — confirm with the owning team first."
+    },
+    {
+      "id": "F-008",
+      "action": "stop-or-terminate-instance",
+      "resourceType": "EC2 instance",
+      "resourceId": "i-0a1b2c3d4e5f60006",
+      "resourceName": "dev-sandbox",
+      "monthlySavingsUsd": 30.37,
+      "recommendation": "Stop or terminate dev-sandbox (t3.medium). If it is needed again, relaunch from the latest AMI — do not keep paying for an idle box."
+    },
+    {
+      "id": "F-009",
+      "action": "snapshot-then-delete-volume",
+      "resourceType": "EBS volume",
+      "resourceId": "vol-0a1b2c3d4e5f600a2",
+      "resourceName": "200GB gp2 volume",
+      "monthlySavingsUsd": 20,
+      "recommendation": "Take a final snapshot if the data matters, then delete vol-0a1b2c3d4e5f600a2 (200GB gp2)."
+    },
+    {
+      "id": "F-010",
+      "action": "snapshot-then-delete-volume",
+      "resourceType": "EBS volume",
+      "resourceId": "vol-0a1b2c3d4e5f600a5",
+      "resourceName": "250GB gp3 volume",
+      "monthlySavingsUsd": 20,
+      "recommendation": "Take a final snapshot if the data matters, then delete vol-0a1b2c3d4e5f600a5 (250GB gp3)."
+    },
+    {
+      "id": "F-011",
+      "action": "delete-load-balancer",
+      "resourceType": "Load balancer",
+      "resourceId": "alb-legacy",
+      "resourceName": "alb-legacy",
+      "monthlySavingsUsd": 16.43,
+      "recommendation": "Delete alb-legacy (application). If the DNS name is still referenced, point it at the active load balancer first."
+    },
+    {
+      "id": "F-012",
+      "action": "delete-load-balancer",
+      "resourceType": "Load balancer",
+      "resourceId": "alb-prod",
+      "resourceName": "alb-prod",
+      "monthlySavingsUsd": 16.43,
+      "recommendation": "Delete alb-prod (application). If the DNS name is still referenced, point it at the active load balancer first."
+    },
+    {
+      "id": "F-013",
+      "action": "delete-snapshot",
+      "resourceType": "EBS snapshot",
+      "resourceId": "snap-0a1b2c3d4e5f60101",
+      "resourceName": "300GB snapshot",
+      "monthlySavingsUsd": 15,
+      "recommendation": "Delete snap-0a1b2c3d4e5f60101 (300GB) unless it is a legal/compliance hold — confirm with the owning team first."
+    },
+    {
+      "id": "F-014",
+      "action": "delete-snapshot",
+      "resourceType": "EBS snapshot",
+      "resourceId": "snap-0a1b2c3d4e5f60104",
+      "resourceName": "100GB snapshot",
+      "monthlySavingsUsd": 5,
+      "recommendation": "Delete snap-0a1b2c3d4e5f60104 (100GB) unless it is a legal/compliance hold — confirm with the owning team first."
+    },
+    {
+      "id": "F-015",
+      "action": "snapshot-then-delete-volume",
+      "resourceType": "EBS volume",
+      "resourceId": "vol-0a1b2c3d4e5f600a6",
+      "resourceName": "50GB gp2 volume",
+      "monthlySavingsUsd": 5,
+      "recommendation": "Take a final snapshot if the data matters, then delete vol-0a1b2c3d4e5f600a6 (50GB gp2)."
+    }
+  ],
+  "rejectedActions": [
+    {
+      "id": "F-001",
+      "resourceName": "analytics-01",
+      "reason": "rejected by reviewer"
+    }
+  ]
+}
